@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const colorInput = document.getElementById('color');
   const colorNameSelect = document.getElementById('colorName');
   const removeGroupBtn = document.getElementById('removeGroup');
+  const autoCollapseCheckbox = document.getElementById('autoCollapse');
 
   function extractMainDomain(hostname) {
     hostname = hostname.replace(/^www\./, '');
@@ -33,6 +34,19 @@ document.addEventListener('DOMContentLoaded', function() {
         // 使用已有的设置
         groupNameInput.value = existingGroup.groupName;
         selectedColor = existingGroup.color;
+        
+        // 查找当前标签组的实际折叠状态
+        chrome.tabGroups.query({}, function(existingGroups) {
+          const currentGroup = existingGroups.find(g => g.title === existingGroup.groupName);
+          if (currentGroup) {
+            // 使用当前标签组的实际折叠状态
+            autoCollapseCheckbox.checked = currentGroup.collapsed;
+          } else {
+            // 如果找不到当前标签组，使用存储的设置
+            autoCollapseCheckbox.checked = existingGroup.autoCollapse !== false;
+          }
+        });
+
         // 更新颜色按钮选中状态
         colorButtons.forEach(btn => {
           if (btn.dataset.color === existingGroup.color) {
@@ -88,15 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
                   // 更新颜色时保持当前的折叠状态
                   chrome.tabGroups.update(existingGroup.id, { 
                     color: color,
-                    collapsed: true  // 更新颜色时也隐藏标签组
+                    collapsed: autoCollapseCheckbox.checked  // 根据设置决定是否隐藏
+                  }, function() {
+                    window.close();
                   });
                 }
               });
-              
-              message.textContent = '颜色更新成功';
-              setTimeout(() => {
-                message.textContent = '';
-              }, 1500);
             });
           }
         });
@@ -135,10 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
             chrome.tabs.ungroup(matchingTabIds);
           }
           
-          message.textContent = '已取消分组';
-          setTimeout(function() {
-            window.close();
-          }, 1500);
+          window.close();
         });
       });
     });
@@ -149,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const domain = domainInput.value;
     const groupName = groupNameInput.value;
+    const autoCollapse = autoCollapseCheckbox.checked;
     if (!validColors.includes(selectedColor)) {
       selectedColor = 'grey';
     }
@@ -160,15 +169,13 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (existingGroupIndex !== -1) {
         // 更新已有分组
-        groups[existingGroupIndex] = { domain, groupName, color };
+        groups[existingGroupIndex] = { domain, groupName, color, autoCollapse };
       } else {
         // 添加新分组
-        groups.push({ domain, groupName, color });
+        groups.push({ domain, groupName, color, autoCollapse });
       }
       
       chrome.storage.sync.set({ groups: groups }, function() {
-        message.textContent = '保存成功';
-        
         // 查找所有匹配的标签页并进行分组
         chrome.tabs.query({}, function(allTabs) {
           const matchingTabs = allTabs.filter(tab => {
@@ -183,26 +190,57 @@ document.addEventListener('DOMContentLoaded', function() {
               const existingGroup = existingGroups.find(g => g.title === groupName);
               if (existingGroup) {
                 chrome.tabs.group({ tabIds: matchingTabIds, groupId: existingGroup.id }, function(groupId) {
-                  // 隐藏已有的标签组
-                  chrome.tabGroups.update(groupId, { collapsed: true });
+                  // 根据设置决定是否隐藏标签组
+                  chrome.tabGroups.update(groupId, { collapsed: autoCollapse });
+                  window.close();
                 });
               } else {
                 chrome.tabs.group({ tabIds: matchingTabIds }, function(groupId) {
                   chrome.tabGroups.update(groupId, {
                     title: groupName,
                     color: color,
-                    collapsed: true  // 创建新分组时直接隐藏
+                    collapsed: autoCollapse  // 根据设置决定是否隐藏
+                  }, function() {
+                    window.close();
                   });
                 });
               }
             });
+          } else {
+            window.close();
           }
         });
-
-        setTimeout(function() {
-          window.close();
-        }, 1500);
       });
+    });
+  });
+
+  // 添加复选框变化事件处理
+  autoCollapseCheckbox.addEventListener('change', function() {
+    const domain = domainInput.value;
+    const groupName = groupNameInput.value;
+    const autoCollapse = this.checked;
+
+    // 更新存储的设置
+    chrome.storage.sync.get('groups', function(data) {
+      const groups = data.groups || [];
+      const existingGroupIndex = groups.findIndex(group => group.domain === domain);
+      
+      if (existingGroupIndex !== -1) {
+        // 更新自动折叠设置
+        groups[existingGroupIndex].autoCollapse = autoCollapse;
+        
+        chrome.storage.sync.set({ groups: groups }, function() {
+          // 立即应用新的折叠状态
+          chrome.tabGroups.query({}, function(existingGroups) {
+            const existingGroup = existingGroups.find(g => g.title === groupName);
+            if (existingGroup) {
+              chrome.tabGroups.update(existingGroup.id, { 
+                collapsed: autoCollapse
+              });
+            }
+          });
+        });
+      }
     });
   });
 });
