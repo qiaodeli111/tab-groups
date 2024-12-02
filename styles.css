@@ -1,0 +1,106 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 300px;
+  padding: 10px;
+}
+
+h1 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+}
+
+input, select {
+  margin-top: 5px;
+  padding: 5px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 8px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#message {
+  margin-top: 15px;
+  color: green;
+  font-weight: bold;
+}
+
+.color-picker-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 5px;
+}
+
+input[type="color"] {
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+select#colorName {
+  flex: 1;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
+.color-buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.color-btn {
+  width: 30px;
+  height: 30px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+}
+
+.color-btn.selected {
+  border-color: #000;
+}
+
+.color-btn.grey { background-color: #5F6368; }
+.color-btn.blue { background-color: #1A73E8; }
+.color-btn.red { background-color: #EA4335; }
+.color-btn.yellow { background-color: #FBBC04; }
+.color-btn.green { background-color: #34A853; }
+.color-btn.pink { background-color: #E91E63; }
+.color-btn.purple { background-color: #9334E6; }
+.color-btn.cyan { background-color: #00A9BB; }
+.color-btn.orange { background-color: #FA903E; }

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "标签页自动分组器",
+  "version": "1.0",
+  "description": "根据预设域名自动对标签页进行分组",
+  "permissions": ["tabs", "tabGroups", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.ico"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.ico"
+  }
+}
