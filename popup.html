@@ -9,10 +9,10 @@
   <h1>标签页分组设置</h1>
   <form id="groupForm">
     <label for="domain">域名:</label>
-    <input type="text" id="domain" required readonly>
+    <input type="text" id="domain" required>
     
     <label for="groupName">分组名称:</label>
-    <input type="text" id="groupName" required readonly>
+    <input type="text" id="groupName" required>
     
     <label>分组颜色:</label>
     <div class="color-buttons">
@@ -27,7 +27,10 @@
       <button type="button" class="color-btn orange" data-color="orange"></button>
     </div>
     
-    <button type="submit">确定</button>
+    <div class="button-container">
+      <button type="submit">确定</button>
+      <button type="button" id="removeGroup" style="display: none; background-color: #dc3545;">取消分组</button>
+    </div>
   </form>
   <div id="message"></div>
   <script src="popup.js"></script>
