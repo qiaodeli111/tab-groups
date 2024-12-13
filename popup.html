@@ -1,43 +1,51 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>标签页自动分组器</title>
+  <title data-i18n="popupTitle">标签页分组设置</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>标签页分组设置</h1>
-  <form id="groupForm">
-    <label for="domain">域名:</label>
-    <input type="text" id="domain" required>
-    
-    <label for="groupName">分组名称:</label>
-    <input type="text" id="groupName" required>
-    
-    <div class="checkbox-container">
-      <input type="checkbox" id="autoCollapse">
-      <label for="autoCollapse">总是折叠其他标签组</label>
-    </div>
-    
-    <label>分组颜色:</label>
-    <div class="color-buttons">
-      <button type="button" class="color-btn grey" data-color="grey"></button>
-      <button type="button" class="color-btn blue" data-color="blue"></button>
-      <button type="button" class="color-btn red" data-color="red"></button>
-      <button type="button" class="color-btn yellow" data-color="yellow"></button>
-      <button type="button" class="color-btn green" data-color="green"></button>
-      <button type="button" class="color-btn pink" data-color="pink"></button>
-      <button type="button" class="color-btn purple" data-color="purple"></button>
-      <button type="button" class="color-btn cyan" data-color="cyan"></button>
-      <button type="button" class="color-btn orange" data-color="orange"></button>
-    </div>
-    
-    <div class="button-container">
-      <button type="submit">确定</button>
-      <button type="button" id="removeGroup" style="display: none; background-color: #dc3545;">取消分组</button>
-    </div>
-  </form>
-  <div id="message"></div>
+  <div class="form-card">
+    <h1 data-i18n="popupTitle">标签页分组设置</h1>
+    <form id="groupForm">
+      <div class="input-group">
+        <label for="domain" data-i18n="domainLabel">域名</label>
+        <input type="text" id="domain" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="groupName" data-i18n="groupNameLabel">分组名称</label>
+        <input type="text" id="groupName" required>
+      </div>
+      
+      <div class="switch-container">
+        <span class="switch-label" data-i18n="autoCollapseLabel">总是折叠其他标签组</span>
+        <label class="switch">
+          <input type="checkbox" id="autoCollapse">
+          <span class="slider"></span>
+        </label>
+      </div>
+      
+      <div class="section-title" data-i18n="colorLabel">分组颜色</div>
+      <div class="color-buttons">
+        <button type="button" class="color-btn grey" data-color="grey"></button>
+        <button type="button" class="color-btn blue" data-color="blue"></button>
+        <button type="button" class="color-btn red" data-color="red"></button>
+        <button type="button" class="color-btn yellow" data-color="yellow"></button>
+        <button type="button" class="color-btn green" data-color="green"></button>
+        <button type="button" class="color-btn pink" data-color="pink"></button>
+        <button type="button" class="color-btn purple" data-color="purple"></button>
+        <button type="button" class="color-btn cyan" data-color="cyan"></button>
+        <button type="button" class="color-btn orange" data-color="orange"></button>
+      </div>
+      
+      <div class="button-container">
+        <button type="submit" data-i18n="confirmButton">确定</button>
+        <button type="button" id="removeGroup" style="display: none;" data-i18n="removeGroupButton">取消分组</button>
+      </div>
+    </form>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>

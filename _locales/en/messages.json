@@ -1,0 +1,26 @@
+{
+  "extName": {
+    "message": "Tab Groups Manager"
+  },
+  "popupTitle": {
+    "message": "Tab Group Settings"
+  },
+  "domainLabel": {
+    "message": "Domain"
+  },
+  "groupNameLabel": {
+    "message": "Group Name"
+  },
+  "autoCollapseLabel": {
+    "message": "Always collapse other tab groups"
+  },
+  "colorLabel": {
+    "message": "Group Color"
+  },
+  "confirmButton": {
+    "message": "Confirm"
+  },
+  "removeGroupButton": {
+    "message": "Remove Group"
+  }
+} 

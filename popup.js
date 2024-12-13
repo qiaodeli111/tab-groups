@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // 初始化国际化
+  initI18n();
+  
   const form = document.getElementById('groupForm');
   const domainInput = document.getElementById('domain');
   const groupNameInput = document.getElementById('groupName');
@@ -247,3 +250,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// 添加国际化初始化函数
+function initI18n() {
+  // 查找所有需要翻译的元素
+  const elements = document.querySelectorAll('[data-i18n]');
+  elements.forEach(element => {
+    const messageKey = element.getAttribute('data-i18n');
+    const message = chrome.i18n.getMessage(messageKey);
+    if (message) {
+      if (element.tagName === 'INPUT' && element.type === 'submit') {
+        element.value = message;
+      } else {
+        element.textContent = message;
+      }
+    }
+  });
+}

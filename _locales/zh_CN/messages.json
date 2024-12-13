@@ -1,0 +1,26 @@
+{
+  "extName": {
+    "message": "标签页分组管理器"
+  },
+  "popupTitle": {
+    "message": "标签页分组设置"
+  },
+  "domainLabel": {
+    "message": "域名"
+  },
+  "groupNameLabel": {
+    "message": "分组名称"
+  },
+  "autoCollapseLabel": {
+    "message": "总是折叠其他标签组"
+  },
+  "colorLabel": {
+    "message": "分组颜色"
+  },
+  "confirmButton": {
+    "message": "确定"
+  },
+  "removeGroupButton": {
+    "message": "取消分组"
+  }
+} 
