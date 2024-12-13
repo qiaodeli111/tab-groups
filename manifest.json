@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "标签页自动分组器",
-  "version": "1.0",
-  "description": "根据预设域名自动对标签页进行分组",
+  "name": "__MSG_extName__",
+  "version": "2.0",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "permissions": ["tabs", "tabGroups", "storage"],
   "action": {
     "default_popup": "popup.html",
@@ -19,6 +20,5 @@
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
     "128": "icons/icon128.png"
-  },
-  "default_locale": "en"
+  }
 }

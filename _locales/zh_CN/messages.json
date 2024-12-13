@@ -2,6 +2,9 @@
   "extName": {
     "message": "标签页分组管理器"
   },
+  "extDescription": {
+    "message": "根据预设域名自动对标签页进行分组"
+  },
   "popupTitle": {
     "message": "标签页分组设置"
   },

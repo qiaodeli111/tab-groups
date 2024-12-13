@@ -2,6 +2,9 @@
   "extName": {
     "message": "Tab Groups Manager"
   },
+  "extDescription": {
+    "message": "Automatically group tabs based on predefined domains"
+  },
   "popupTitle": {
     "message": "Tab Group Settings"
   },
